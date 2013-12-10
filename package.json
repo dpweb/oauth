@@ -1,0 +1,19 @@
+{
+  "name": "oauth",
+  "description": "",
+  "url": "http://github.com/dpweb/oauth/",
+  "keywords": [
+    "util",
+    "nodejs"
+  ],
+  "author": {
+    "name": "C Borkert",
+    "email": "ILIKECHEESE@dpsw.info"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dpweb/oauth.git"
+  },
+  "main": "clarity.js",
+  "version": "0.0.1"
+}
