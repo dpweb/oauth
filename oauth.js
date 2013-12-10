@@ -81,56 +81,7 @@ function OAuth2(config){
     }
 }
 
-strats = {
-    "github": {
-        authenticate: function(r, s, n){
-                if(r.body.hasOwnProperty('access_token')){
-                    console.log(r.body.access_token)
-                    return n();
-                }
-                if(!r.body.hasOwnProperty('code')){
-                    request('https://github.com/login/oauth/authorize?client_id=de1f8321ad576de8583e', function(e, r, b){
-                        console.log(r, b);  // that.info.access_token =''
-                    });
-                    return n();
-                }
-                var ra = this.config;
-                ra.code = r.body.code;
-                console.log(ra);
-
-                var that = this;
-                request.post('https://github.com/login/oauth/access_token', ra, function(e, r, b){
-                    console.log(b);  // that.info.access_token =''
-                });
-                n();
-        },
-        api: function(r, s, n){
-
-        }
-    }
-}
-
-function webflow(config, app){
-    for(name in strats){
-        strats[name].config = config[name];
-        app.get(/./, function(r, s, n){
-            strats[name].authenticate.call(strats[name], r, s, n);
-        })
-    }
-    /*var auth_header = OAuth1(config).calcHeaders('POST', 'https://api.twitter.com/oauth/request_token', null, 
-        { 
-            oauth_callback: "http://mymapp.com/",
-        });
-    request.post({url: "https://api.twitter.com/oauth/request_token", headers: {"Authorization": auth_header}}, function(e, r, b){
-        if(e) throw e;
-        console.log(b);
-    });  
-    */
-}
-
-
 module.exports = {
     v1: OAuth1,
-    v2: OAuth2,
-    webflow: webflow
+    v2: OAuth2
 }
